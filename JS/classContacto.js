@@ -1,4 +1,4 @@
-export class Contacto {
+export default class Contacto {
     #id;
     #nombre;
     #apellido;
@@ -50,5 +50,3 @@ export class Contacto {
     }
   
   }
-
-export const prueba = 23455;
