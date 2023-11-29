@@ -2,7 +2,7 @@ import Contacto from "./classContacto.js";
 
 //variables globales
 // const contactoNuevo = new Contacto(1, "algun nombre", "apellido", "sadsad@gsdsdf.com", 4528039);
-const agenda = [];
+const agenda = JSON.parse(localStorage.getItem(`agendaKey`)) || [];
 const formularioContacto = document.querySelector(`form`);
 const nombre = document.querySelector(`#nombre`),
 apellido = document.querySelector(`#apellido`),
@@ -22,10 +22,15 @@ const crearContacto = (e) => {
     agenda.push(contactoNuevo);
     guardarEnLocalStorage();
     console.log(agenda);
+    limpiarFormulario();
 };
 
 const guardarEnLocalStorage = () => {
     localStorage.setItem(`agendaKey`, JSON.stringify(agenda));
+}
+
+const limpiarFormulario = () =>{
+    formularioContacto.reset();
 }
 
 //logica
