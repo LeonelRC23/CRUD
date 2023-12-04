@@ -58,7 +58,6 @@ const crearFila = (contacto, fila) => {
 }
 
 window.borrarContacto = (idContacto) => {
-    console.log("desde la funcion borrar contacto");
     //buscar contacto por id y obtener su posicion. findIndex
     const posicionContactoBuscado = agenda.findIndex((contacto) => contacto.id === idContacto)
     console.log(posicionContactoBuscado);
@@ -67,6 +66,9 @@ window.borrarContacto = (idContacto) => {
     //actualizar localstoraje
     guardarEnLocalStorage();
     //borrar la fila de la tabla
+    const tablaContacto = document.querySelector(`tbody`);
+    console.log(tablaContacto.children[posicionContactoBuscado]);
+    tablaContacto.removeChild(tablaContacto.children[posicionContactoBuscado]);
 }
 
 //logica
