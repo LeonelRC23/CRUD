@@ -17,7 +17,7 @@ const crearContacto = (e) => {
     console.log(`Desde la funcion crear contacto`);
     //validar datos
     //crear el objeto con los datos del formulario
-    const contactoNuevo = new Contacto(1, nombre.value, apellido.value, email.value, telefono.value);
+    const contactoNuevo = new Contacto(crypto.randomUUID(), nombre.value, apellido.value, email.value, telefono.value);
     //guardar el objeto en un array agenda
     agenda.push(contactoNuevo);
     guardarEnLocalStorage();
@@ -52,9 +52,21 @@ const crearFila = (contacto, fila) => {
     <td>
       <a class="btn btn-primary" href="./pages/detalleContacto.html">Ver más</a>
       <button class="btn btn-warning">Editar</button>
-      <button class="btn btn-danger">Borrar</button>
+      <button class="btn btn-danger" onclick="borrarContacto('${contacto.id}')">Borrar</button>
     </td>
   </tr>`
+}
+
+window.borrarContacto = (idContacto) => {
+    console.log("desde la funcion borrar contacto");
+    //buscar contacto por id y obtener su posicion. findIndex
+    const posicionContactoBuscado = agenda.findIndex((contacto) => contacto.id === idContacto)
+    console.log(posicionContactoBuscado);
+    //borrar del array - splice(posicion del elemento, cuantos quiero borrar)
+    agenda.splice(posicionContactoBuscado, 1);
+    //actualizar localstoraje
+    guardarEnLocalStorage();
+    //borrar la fila de la tabla
 }
 
 //logica
