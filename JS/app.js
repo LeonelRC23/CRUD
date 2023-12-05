@@ -1,4 +1,5 @@
 import Contacto from "./classContacto.js";
+import { validarCantidadCaracteres } from "./validaciones.js";
 
 //variables globales
 // const contactoNuevo = new Contacto(1, "algun nombre", "apellido", "sadsad@gsdsdf.com", 4528039);
@@ -14,21 +15,28 @@ const crearContacto = (e) => {
   e.preventDefault();
   console.log(`Desde la funcion crear contacto`);
   //validar datos
-  //crear el objeto con los datos del formulario
-  const contactoNuevo = new Contacto(
-    crypto.randomUUID(),
-    nombre.value,
-    apellido.value,
-    email.value,
-    telefono.value
-  );
-  //guardar el objeto en un array agenda
-  agenda.push(contactoNuevo);
-  guardarEnLocalStorage();
-  console.log(agenda);
-  limpiarFormulario();
-  //dibujar fila
-  crearFila(contactoNuevo, agenda.length);
+  if (
+    validarCantidadCaracteres(nombre.value, 5, 50) &&
+    validarCantidadCaracteres(apellido.value, 5, 50)
+  ) {
+    //crear el objeto con los datos del formulario
+    const contactoNuevo = new Contacto(
+      crypto.randomUUID(),
+      nombre.value,
+      apellido.value,
+      email.value,
+      telefono.value
+    );
+    //guardar el objeto en un array agenda
+    agenda.push(contactoNuevo);
+    guardarEnLocalStorage();
+    console.log(agenda);
+    limpiarFormulario();
+    //dibujar fila
+    crearFila(contactoNuevo, agenda.length);
+  } else {
+    alert("Usted cargo datos erroneos.");
+  }
 };
 
 const guardarEnLocalStorage = () => {
@@ -54,7 +62,7 @@ const crearFila = (contacto, fila) => {
     <td>${contacto.email}</td>
     <td>${contacto.telefono}</td>
     <td>
-      <button class="btn btn-primary" onclick="detalleContacto('${contacto.id}')">Ver más</button>
+      <button class="btn btn-primary" onclick="detalleContacto('${contacto.id}')">Editar</button>
       <button class="btn btn-warning">Editar</button>
       <button class="btn btn-danger" onclick="borrarContacto('${contacto.id}')">Borrar</button>
     </td>
@@ -100,9 +108,10 @@ window.borrarContacto = (idContacto) => {
 };
 
 window.detalleContacto = (idContacto) => {
-    console.log(window.location);
-    window.location.href = window.location.origin + '/pages/detalleContacto.html?id=' + idContacto;
-}
+  console.log(window.location);
+  window.location.href =
+    window.location.origin + "/pages/detalleContacto.html?id=" + idContacto;
+};
 
 //logica
 formularioContacto.addEventListener(`submit`, crearContacto);
