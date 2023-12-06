@@ -39,6 +39,7 @@ console.log(formulario.elements["apellido"].value);
 console.log(formulario.elements["email"].value);
 console.log(formulario.elements["telefono"].value);
 
-botonGuardarCambios.addEventListener(`sumbit`, subirCambios);
-
+//los datos aparecen cargados pero no puedo guardarlos en el localStorage
 // console.log(formulario.elements["email"].value);
+
+//Corregir, no habia que actualizar datos
